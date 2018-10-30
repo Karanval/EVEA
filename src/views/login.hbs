@@ -1,1 +1,11 @@
-{{appData}}
+<p>
+  {{error}}
+</p>
+<p>
+  {{data}}
+</p>
+{{#if error_stacktrace}}
+  <p>
+    {{error_stacktrace}}
+  </p>
+{{/if}}
