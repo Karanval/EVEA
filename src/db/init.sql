@@ -26,11 +26,11 @@ USE `eva` ;
 DROP TABLE IF EXISTS `eva`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `eva`.`user` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`user_id`))
 ENGINE = InnoDB;
 
 
@@ -40,9 +40,9 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `eva`.`role` ;
 
 CREATE TABLE IF NOT EXISTS `eva`.`role` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `role_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`role_id`))
 ENGINE = InnoDB;
 
 
@@ -59,12 +59,12 @@ CREATE TABLE IF NOT EXISTS `eva`.`user_role` (
   PRIMARY KEY (`user_id`, `role_id`),
   CONSTRAINT `fk_user_role_user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `eva`.`user` (`id`)
+    REFERENCES `eva`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_role_role1`
     FOREIGN KEY (`role_id`)
-    REFERENCES `eva`.`role` (`id`)
+    REFERENCES `eva`.`role` (`role_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -76,8 +76,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `eva`.`class` ;
 
 CREATE TABLE IF NOT EXISTS `eva`.`class` (
-  `id` INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`))
+  `class_id` INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`class_id`))
 ENGINE = InnoDB;
 
 
@@ -92,14 +92,14 @@ CREATE TABLE IF NOT EXISTS `eva`.`user_has_class` (
   PRIMARY KEY (`user_id`, `class_id`),
   INDEX `fk_user_has_class_class1_idx` (`class_id` ASC),
   INDEX `fk_user_has_class_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_has_class_user1`
+  CONSTRAINT `fk_user_has_class_user1`REFERENCES
     FOREIGN KEY (`user_id`)
-    REFERENCES `eva`.`user` (`id`)
+    REFERENCES `eva`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_class_class1`
     FOREIGN KEY (`class_id`)
-    REFERENCES `eva`.`class` (`id`)
+    REFERENCES `eva`.`class` (`class_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
