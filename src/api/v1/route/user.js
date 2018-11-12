@@ -19,7 +19,7 @@ export default (server, core) => {
 
     manager.createUser(newUser)
       .then(function(user) {
-        return res.send(201, {
+        return res.status(201).send({
           id: user.user_id,
           message: `User created: '${user.user_id}'.`
         });

@@ -5,7 +5,7 @@ import {
 import Base from './Base';
 import bcrypt from 'bcrypt';
 
-const allFields = ['user_id', 'email', 'password', 'name', 'created_at',];
+const allFields = ['user_id', 'email', 'password', 'name', 'created',];
 
 class User extends Base {
 
@@ -34,7 +34,7 @@ class User extends Base {
       allowNull: false,
       field: 'password'
     },
-    created_at: {
+    created: {
       type: Sequelize.DATE,
       allowNull: false,
       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

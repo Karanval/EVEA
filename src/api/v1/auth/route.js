@@ -20,8 +20,7 @@ export default (server, core) => {
 
           user.access_token = token;
           delete user.roles;
-
-          return res.send(201, user);
+          return res.status(201).send(user);
         })
         .catch((error) => {
           return next(new restifyErrors.InvalidContentError(error));

@@ -37,7 +37,7 @@ class RoutesCreator {
         });
       },
       delete: () => {
-        server.del('/' + resourceName + '/:id', (req, res, next) => {
+        server.delete('/' + resourceName + '/:id', (req, res, next) => {
           this.delete(req, res, next, req.params.id);
         });
       },
@@ -118,7 +118,7 @@ class RoutesCreator {
           identifier = newItem.id;
         }
 
-        return res.send(201, {
+        return res.status(201).send({
           id: identifier,
           message: `${this.modelName} created: '${utils.stringifyId(identifier)}'.`
         });
@@ -140,7 +140,7 @@ class RoutesCreator {
 
     manager.createChild(parentModelId, childmodelName, newItemData)
       .then((newItem) => {
-        return res.send(201, {
+        return res.status(201).send({
           id: newItem.id,
           message: `${childmodelName} created: '${newItem.id}'.`
         });
@@ -163,7 +163,7 @@ class RoutesCreator {
 
     manager.update(modelId, updatedItemData)
       .then((updatedItem) => {
-        return res.send(200, {
+        return res.status(200).send({
           id: modelId,
           message: this.modelName + ' updated: \'' + utils.stringifyId(modelId) + '\'.'
         });
@@ -185,7 +185,7 @@ class RoutesCreator {
 
     manager.delete(modelId, req.body)
       .then((deletedId) => {
-        return res.send(200, {
+        return res.status(200).send({
           id: deletedId,
           message: this.modelName + ' deleted: \'' + utils.stringifyId(deletedId) + '\'.'
         });
@@ -214,7 +214,7 @@ class RoutesCreator {
           return next(new restifyErrors.NotFoundError(this.modelName + ' \'' + modelId + '\' not found.'));
         }
 
-        return res.send(200, formatter.toJSON(item));
+        return res.status(200).send(formatter.toJSON(item));
       })
       .catch((error) => {
         return next(errorHandler(error));
@@ -239,7 +239,7 @@ class RoutesCreator {
           return next(new restifyErrors.NotFoundError(this.modelName + ' not found.'));
         }
 
-        return res.send(200, formatter.toJSON(item));
+        return res.status(200).send(formatter.toJSON(item));
       })
       .catch((error) => {
         return next(errorHandler(error));
@@ -279,10 +279,10 @@ class RoutesCreator {
               let totalPages = Math.ceil(count / (findOptions.limit || count));
               res.header('X-Total-Pages', totalPages);
 
-              return res.send(200, collection);
+              return res.status(200).send(collection);
             });
         } else {
-          return res.send(200, collection);
+          return res.status(200).send(collection);
         }
       })
       .catch((error) => {

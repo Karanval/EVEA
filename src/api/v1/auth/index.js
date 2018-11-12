@@ -1,7 +1,7 @@
 import namespace from 'restify-namespace';
 import passport from 'passport';
 import passportJwt from 'passport-jwt';
-import restifyErrors from 'express-server-error';
+import restifyErrors from 'restify-errors';
 
 import authRoutes from './route';
 import config from '../../../config';
@@ -67,8 +67,8 @@ export default (server, core) => {
       console.log(roles);
 
       let operation = req.method.toLowerCase();
-      console.log(JSON.stringify(req.originalURL));
-      let resourcePath = req.originalURL;
+      let resourcePath = req.url;
+      console.log(resourcePath);
 
       memoryBackendAcl.areAnyRolesAllowed(roles, resourcePath, operation,
         (error, isAllowed) => {
@@ -101,3 +101,4 @@ export default (server, core) => {
     authenticate(req, res, next);
   });
 };
+

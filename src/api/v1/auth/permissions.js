@@ -1,7 +1,7 @@
 const permissions = [{
   "roles": ["visitor"],
   "allows": [{
-    "resources": ["/v1/auth/login" 
+    "resources": ["/v1/login", "/v1/user", "/v1/user/:id/session"
     ],
     "permissions": ["post"]
   }]
@@ -10,7 +10,7 @@ const permissions = [{
   "roles": ["user", "admin"],
   "allows": [{
     "resources": [
-      "/v1/user/:id/session", 
+      "/v1/user/:id/session", "/v1/login", "/v1/user"
     ],
     "permissions": ["get"]
   }]

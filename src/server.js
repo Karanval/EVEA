@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 export default function(serverConfig = {}) {
 
@@ -12,6 +13,9 @@ export default function(serverConfig = {}) {
   };
 
   server.use(cors(corsOptions));
+  
+  server.use(express.urlencoded({ extended: true }));
+  server.use(express.json());
 
   const port = process.env.PORT || serverConfig.port || 8080;
 

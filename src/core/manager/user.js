@@ -68,17 +68,10 @@ class UserManager extends Manager {
 
           return user;
         })
-        .then((user) => {
+        .then(async (user) => {
           if (user) {
-            return user.updateAttributes({
-                logged_in_at: moment().format()
-              }, {
-                isUpdateOperation: true
-              })
-              .then(() => {
-                return this._parseOutputItem(user);
-              })
-              .then(resolve);
+            const value = await this._parseOutputItem(user);
+            return resolve(value);
           }
           resolve();
         })
@@ -107,7 +100,7 @@ class UserManager extends Manager {
           return;
         })
         .then(() => {
-
+          userPayload.name = newUser.name;
           return userModel.create(userPayload, {
             transaction: t
           });

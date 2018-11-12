@@ -195,7 +195,7 @@ class Manager {
               curatedUpdatedItemData = curatedUpdatedItemData.updatable;
 
               let originalData = Object.assign({}, item.toJSON());
-              item.updateAttributes(curatedUpdatedItemData, {
+              item.update(curatedUpdatedItemData, {
                   isUpdateOperation: true
                 })
                 .then((updatedItem) => {
