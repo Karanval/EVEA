@@ -47,7 +47,7 @@ class Test extends Base {
 
   static associatedModels = [{
     modelName: 'Class',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
       as: 'class',
       foreignKey: 'class_id'

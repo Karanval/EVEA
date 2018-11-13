@@ -43,9 +43,10 @@ class Question extends Base {
   static updatableFields = ['label', 'type'];
 
   static associatedModels = [{
-    modelName: 'Form',
+    modelName: 'Test',
     type: 'belongsToMany',
     options: {
+      through: 'TestHasQuestion',
       as: 'tests',
       foreignKey: 'question_id'
     }

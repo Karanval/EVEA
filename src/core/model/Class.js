@@ -57,7 +57,7 @@ class Class extends Base {
   };
 }
 
-User.generateCode = function() {
+Class.generateCode = function() {
   return new Promise((resolve, reject) => {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

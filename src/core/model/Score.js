@@ -42,7 +42,7 @@ class Score extends Base {
 
   static associatedModels = [{
     modelName: 'User',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
       as: 'user',
       foreignKey: 'user_id'

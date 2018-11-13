@@ -42,16 +42,16 @@ class UserAssignment extends Base {
 
   static associatedModels = [{
     modelName: 'User',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
       as: 'user',
       foreignKey: 'user_id'
     }
   },{
     modelName: 'Assignment',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
-      as: 'assignment',
+      as: 'belongs_assignment',
       foreignKey: 'assignment'
     }
   },{

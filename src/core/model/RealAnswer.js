@@ -34,7 +34,7 @@ class RealAnswer extends Base {
 
   static associatedModels = [{
     modelName: 'Question',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
       as: 'question',
       foreignKey: 'question_id'

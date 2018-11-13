@@ -38,14 +38,14 @@ class Answer extends Base {
 
   static associatedModels = [{
     modelName: 'Question',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
       as: 'question',
       foreignKey: 'question_id'
     }
   }, {
     modelName: 'User',
-    type: 'belongsToOne',
+    type: 'belongsTo',
     options: {
       as: 'user',
       foreignKey: 'user_id'
