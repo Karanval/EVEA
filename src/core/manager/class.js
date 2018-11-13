@@ -17,7 +17,7 @@ class ClassManager extends Manager {
   createClass(payload) {
     const classModel = this.core.getModel('Class');
     
-    classModel.sequelize.transaction((t) => {
+    return classModel.sequelize.transaction((t) => {
       return classModel.generateCode()
       .then((code) => {
         payload.class_code = code;
@@ -38,7 +38,7 @@ class ClassManager extends Manager {
       });
     })
     .catch((error) => {
-      throw new Manager.createSequelizeError(error);
+      throw Manager.createSequelizeError(error);
     })
   }
 
@@ -49,8 +49,8 @@ class ClassManager extends Manager {
 
     let savedClass;
 
-    classModel.sequelize.transaction((t) => {
-      classModel.findById(classId,{
+    return classModel.sequelize.transaction((t) => {
+      return classModel.findById(classId,{
         transaction: t
       })
       .then((subject) => {
@@ -76,7 +76,7 @@ class ClassManager extends Manager {
       })
     })
     .catch((error) => {
-      throw new Manager.createSequelizeError(error);
+      throw Manager.createSequelizeError(error);
     })
   }
 }

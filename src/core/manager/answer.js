@@ -44,7 +44,7 @@ class AnswerManager extends Manager {
       }); 
     })
     .catch((error) => {
-      throw new Manager.createSequelizeError(error);
+      throw Manager.createSequelizeError(error);
     })
   }
 }
