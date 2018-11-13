@@ -63,6 +63,13 @@ class User extends Base {
       as: 'roles',
       foreignKey: 'user_id'
     }
+  },{
+    modelName: 'Class',
+    type: 'hasMany',
+    options: {
+      as: 'classes',
+      foreignKey: 'user_id'
+    }
   }];
 
   static options = {
