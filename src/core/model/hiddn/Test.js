@@ -2,14 +2,15 @@ import {
   Sequelize,
   DataTypes
 } from 'sequelize';
-import Base from './Base';
+import Base from '../Base';
 
-const allFields = ['assignment_id', 'class_id', 'description', 'start', 'end', 'name'];
+const allFields = ['test_id', 'class_id', 'start', 'end', 'name', 
+  'possible_score'];
 
-class Assignment extends Base {
+class Test extends Base {
 
   static fields = {
-    assignment_id: {
+    test_id: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       primaryKey: true
@@ -17,10 +18,6 @@ class Assignment extends Base {
     class_id: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true
     },
     start: {
       type: Sequelize.DATE,
@@ -33,6 +30,10 @@ class Assignment extends Base {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    possible_score: {
+      type: DataTypes.DECIMAL,
+      allowNull: false
     }
   };
 
@@ -42,7 +43,7 @@ class Assignment extends Base {
     detail: allFields
   };
 
-  static updatableFields = ['name', 'end', 'description'];
+  static updatableFields = ['name', 'end', 'possbile_score'];
 
   static associatedModels = [{
     modelName: 'Class',
@@ -52,17 +53,24 @@ class Assignment extends Base {
       foreignKey: 'class_id'
     }
   },{
+    modelName: 'Question',
+    type: 'hasMany',
+    options: {
+      as: 'questions',
+      foreignKey: 'test_id'
+    }
+  },{
     modelName: 'Score',
     type: 'hasOne',
     options: {
       as: 'score',
-      foreignKey: 'assignment_id'
+      foreignKey: 'test_id'
     }
   }];
 
   static options = {
-    tableName: 'assingment'
+    tableName: 'test'
   };
 }
 
-export default Assignment;
+export default Test;

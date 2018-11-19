@@ -12,6 +12,21 @@ export default (server, core) => {
 
   routesCreator.registerBasics(['delete', 'getAll', 'getOneById']);
 
+  server.post('/v1/makeAdmin/:id', (req, res, next) => {
+    
+    const manager = core.getUserManager();
+
+    manager.createAdmin(req.params.id)
+      .then(function(user) {
+        return res.send(201,{
+          id: user.user_id,
+          message: `Admin created: '${user.user_id}'.`
+        });
+      }).catch(function(error) {
+        return next(errorHandler(error));
+      });
+  });
+
   server.post('/user', (req, res, next) => {
     let newUser = utils.copyObject(req.body);
 
@@ -19,7 +34,7 @@ export default (server, core) => {
 
     manager.createUser(newUser)
       .then(function(user) {
-        return res.status(201).send({
+        return res.send(201,{
           id: user.user_id,
           message: `User created: '${user.user_id}'.`
         });
@@ -35,8 +50,6 @@ export default (server, core) => {
       attributes: Array.from(model.displayFields['session']),
       include: [{
         association: 'roles'
-      }, {
-        association: 'details'
       }]
     };
 

@@ -1,10 +1,10 @@
-import Manager from './manager';
+import Manager from '../manager';
 
-class QuestionManager extends Manager {
+class TestManager extends Manager {
 
   constructor(core, options = {}) {
     super(core, Object.assign(options, {
-      modelName: 'Question'
+      modelName: 'Test'
     }));
   }
 
@@ -15,4 +15,4 @@ class QuestionManager extends Manager {
   }
 }
 
-export default QuestionManager;
+export default TestManager;

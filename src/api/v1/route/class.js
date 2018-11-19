@@ -6,7 +6,7 @@ export default (server, core) => {
   let routesCreator = new RoutesCreator(
     server, core, 'class', 'Class', {});
 
-  routesCreator.registerBasics(['delete', 'getAll', 'getOneById']);
+  routesCreator.registerBasics([]);
 
   server.get('/classes', (req, res, next) => {
     const options = routesCreator.extractGetAllOptions(req);
@@ -21,7 +21,7 @@ export default (server, core) => {
 
     classManager.createClass(payload)
     .then(function(subject) {
-      return res.status(201).send({
+      return res.send(201,{
         id: subject.class_id,
         message: `Class created: ${subject.class_id}.`
       });
@@ -37,7 +37,7 @@ export default (server, core) => {
 
     classManager.signup(req.params.userId, req.params.classId, payload)
     .then(function(signUp) {
-      return res.status(201).send({
+      return res.send(201, {
         id: signUp.user_id,
         message: `User ${signup.user_id} signed up in class ${signup.class_id}.`
       });

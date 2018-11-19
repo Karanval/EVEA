@@ -1,4 +1,4 @@
-import restifyErrors from 'express-server-error';
+import restifyErrors from 'restify-errors';
 
 import utils from './utils';
 import formatter from './response-formatter';
@@ -37,7 +37,7 @@ class RoutesCreator {
         });
       },
       delete: () => {
-        server.delete('/' + resourceName + '/:id', (req, res, next) => {
+        server.del('/' + resourceName + '/:id', (req, res, next) => {
           this.delete(req, res, next, req.params.id);
         });
       },
@@ -118,7 +118,7 @@ class RoutesCreator {
           identifier = newItem.id;
         }
 
-        return res.status(201).send({
+        return res.send(201, {
           id: identifier,
           message: `${this.modelName} created: '${utils.stringifyId(identifier)}'.`
         });
@@ -140,7 +140,7 @@ class RoutesCreator {
 
     manager.createChild(parentModelId, childmodelName, newItemData)
       .then((newItem) => {
-        return res.status(201).send({
+        return res.send(201, {
           id: newItem.id,
           message: `${childmodelName} created: '${newItem.id}'.`
         });
@@ -163,7 +163,7 @@ class RoutesCreator {
 
     manager.update(modelId, updatedItemData)
       .then((updatedItem) => {
-        return res.status(200).send({
+        return res.send(200, {
           id: modelId,
           message: this.modelName + ' updated: \'' + utils.stringifyId(modelId) + '\'.'
         });
@@ -185,7 +185,7 @@ class RoutesCreator {
 
     manager.delete(modelId, req.body)
       .then((deletedId) => {
-        return res.status(200).send({
+        return res.send(200, {
           id: deletedId,
           message: this.modelName + ' deleted: \'' + utils.stringifyId(deletedId) + '\'.'
         });
@@ -214,7 +214,7 @@ class RoutesCreator {
           return next(new restifyErrors.NotFoundError(this.modelName + ' \'' + modelId + '\' not found.'));
         }
 
-        return res.status(200).send(formatter.toJSON(item));
+        return res.send(200, formatter.toJSON(item));
       })
       .catch((error) => {
         return next(errorHandler(error));
@@ -239,7 +239,7 @@ class RoutesCreator {
           return next(new restifyErrors.NotFoundError(this.modelName + ' not found.'));
         }
 
-        return res.status(200).send(formatter.toJSON(item));
+        return res.send(200, formatter.toJSON(item));
       })
       .catch((error) => {
         return next(errorHandler(error));
@@ -279,10 +279,10 @@ class RoutesCreator {
               let totalPages = Math.ceil(count / (findOptions.limit || count));
               res.header('X-Total-Pages', totalPages);
 
-              return res.status(200).send(collection);
+              return res.send(200, collection);
             });
         } else {
-          return res.status(200).send(collection);
+          return res.send(200, collection);
         }
       })
       .catch((error) => {

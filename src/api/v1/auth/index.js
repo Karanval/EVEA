@@ -67,7 +67,7 @@ export default (server, core) => {
       console.log(roles);
 
       let operation = req.method.toLowerCase();
-      let resourcePath = req.url;
+      let resourcePath = req.route.path;
       console.log(resourcePath);
 
       memoryBackendAcl.areAnyRolesAllowed(roles, resourcePath, operation,
@@ -101,4 +101,3 @@ export default (server, core) => {
     authenticate(req, res, next);
   });
 };
-

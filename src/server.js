@@ -1,21 +1,28 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import restify from 'restify';
+import corsMiddleware from 'restify-cors-middleware';
 
 export default function(serverConfig = {}) {
 
-  const server = express();
+  const server = restify.createServer();
 
-  let corsOptions = {
+  server.use(restify.plugins.queryParser());
+  server.use(restify.plugins.bodyParser());
+
+  let corsOrigins = [
+      'http://localhost:4200'
+    ],
+    corsAllowHeaders = ['*', 'Authorization'],
+    corsExposeHeaders = ['*'];
+
+  const cors = corsMiddleware({
     preflightMaxAge: 25,
-    allowHeaders: ['*', 'Authorization'],
-    exposeHeaders: ['*']
-  };
+    origins: corsOrigins,
+    allowHeaders: corsAllowHeaders,
+    exposeHeaders: corsExposeHeaders
+  });
 
-  server.use(cors(corsOptions));
-  
-  server.use(express.urlencoded({ extended: true }));
-  server.use(express.json());
+  server.pre(cors.preflight);
+  server.use(cors.actual);
 
   const port = process.env.PORT || serverConfig.port || 8080;
 

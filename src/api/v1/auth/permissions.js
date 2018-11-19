@@ -1,7 +1,7 @@
 const permissions = [{
   "roles": ["visitor"],
   "allows": [{
-    "resources": ["/v1/login", "/v1/user", "/v1/user/:id/session"
+    "resources": ["/v1/auth/login", "/v1/user", "/v1/user/:id/session"
     ],
     "permissions": ["post"]
   }]
@@ -10,7 +10,7 @@ const permissions = [{
   "roles": ["user", "admin", "professor"],
   "allows": [{
     "resources": [
-      "/v1/user/:id/session", "/v1/login", "/v1/user", "/v1/classes",
+      "/v1/user/:id/session", "/v1/auth/login", "/v1/user", "/v1/classes",
       "/v1/signup/user/:userId/class/:classId", 
       "/v1/class/:classId/assignments"
     ],

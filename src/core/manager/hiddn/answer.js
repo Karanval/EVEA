@@ -1,4 +1,4 @@
-import Manager from './manager';
+import Manager from '../manager';
 import moment from 'moment';
 
 class AnswerManager extends Manager {

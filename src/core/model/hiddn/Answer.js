@@ -2,34 +2,30 @@ import {
   Sequelize,
   DataTypes
 } from 'sequelize';
-import Base from './Base';
+import Base from '../Base';
 
-const allFields = ['score_id', 'user_id', 'test_id', 'assignment_id','score'];
+const allFields = ['answer_id', 'question_id', 'user_id', 'value'];
 
-class Score extends Base {
+class Answer extends Base {
 
   static fields = {
-    file_id: {
+    answer_id: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       primaryKey: true
     },
-    user_id: {
+    question_id: {
       type: DataTypes.INTEGER(11).UNSIGNED,
-      allowNull: false
-    },
-    test_id: {
-      type: DataTypes.INTEGER(11).UNSIGNED,
-      allowNull: false
-    },
-    assignment_id: {
-      type: DataTypes.INTEGER(11).UNSIGNED,
-      allowNull: false
-    },
-    score: {
-      type: DataTypes.DECIMAL,
       allowNull: true
     },
+    user_id: {
+      type: DataTypes.INTEGER(11).UNSIGNED,
+      allowNull: true
+    },
+    value: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   };
 
   static displayFields = {
@@ -38,9 +34,16 @@ class Score extends Base {
     detail: allFields
   };
 
-  static updatableFields = ['score'];
+  static updatableFields = ['value'];
 
   static associatedModels = [{
+    modelName: 'Question',
+    type: 'belongsTo',
+    options: {
+      as: 'question',
+      foreignKey: 'question_id'
+    }
+  }, {
     modelName: 'User',
     type: 'belongsTo',
     options: {
@@ -50,8 +53,8 @@ class Score extends Base {
   }];
 
   static options = {
-    tableName: 'score'
+    tableName: 'answer'
   };
 }
 
-export default Score;
+export default Answer;

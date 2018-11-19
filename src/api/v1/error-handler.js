@@ -1,4 +1,4 @@
-import restifyErrors from 'express-server-error';
+import restifyErrors from 'restify-errors';
 
 const errorsMap = {
   ReferenceError: 'InternalServerError',

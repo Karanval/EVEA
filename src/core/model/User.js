@@ -46,11 +46,11 @@ class User extends Base {
   };
 
   static displayFields = {
-    basic: ['id', 'email'],
+    basic: ['user_id', 'email'],
     summary: allFields,
     detail: allFields,
-    login: ['id', 'email', 'password'],
-    session: ['id'],
+    login: ['user_id', 'email', 'password'],
+    session: ['user_id'],
   };
 
   static updatableFields = ['email', 'password', 'created_at',];
@@ -61,13 +61,6 @@ class User extends Base {
     options: {
       through: 'UserRole',
       as: 'roles',
-      foreignKey: 'user_id'
-    }
-  },{
-    modelName: 'Class',
-    type: 'hasMany',
-    options: {
-      as: 'classes',
       foreignKey: 'user_id'
     }
   }];

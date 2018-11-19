@@ -13,7 +13,7 @@ export default (server, core) => {
 
     assignmentManager.getAssignments(req.params.classId)
     .then((result) => {
-      return res.status(201).send(result);
+      return res.send(201, result);
     })
     .catch(function(error) {
       return next(errorHandler(error));
@@ -26,7 +26,7 @@ export default (server, core) => {
     let payload = utils.copyObject(req.body);
     assignmentManager.createOrUpdate(req.params.classId, payload)
     .then((assignment) => {
-      return res.status(201).send({
+      return res.send(201, {
         id: assignment.assignment_id,
         message: `Assignment created/updated: ${assignment.assignment_id}.`
       });

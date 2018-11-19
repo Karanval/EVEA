@@ -1,10 +1,10 @@
-import Manager from './manager';
+import Manager from '../manager';
 
-class TestManager extends Manager {
+class ScoreManager extends Manager {
 
   constructor(core, options = {}) {
     super(core, Object.assign(options, {
-      modelName: 'Test'
+      modelName: 'Score'
     }));
   }
 
@@ -15,4 +15,4 @@ class TestManager extends Manager {
   }
 }
 
-export default TestManager;
+export default ScoreManager;

@@ -2,7 +2,7 @@ import {
   Sequelize,
   DataTypes
 } from 'sequelize';
-import Base from './Base';
+import Base from '../Base';
 
 const allFields = ['user_id', 'class_id'];
 

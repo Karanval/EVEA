@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import restifyErrors from 'express-server-error';
+import restifyErrors from 'restify-errors';
 import config from '../../../config';
 
 export default (server, core) => {
@@ -19,11 +19,12 @@ export default (server, core) => {
           });
 
           user.access_token = token;
-          delete user.roles;
-          return res.status(201).send(user);
+          // delete user.roles;
+
+          return res.send(201, user);
         })
         .catch((error) => {
-          return next(new restifyErrors.InvalidContentError(error));
+          return next(new Error(error));
         });
     });
   };

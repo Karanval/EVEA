@@ -1,10 +1,10 @@
-import Manager from './manager';
+import Manager from '../manager';
 
-class ScoreManager extends Manager {
+class FileManager extends Manager {
 
   constructor(core, options = {}) {
     super(core, Object.assign(options, {
-      modelName: 'Score'
+      modelName: 'File'
     }));
   }
 
@@ -15,4 +15,4 @@ class ScoreManager extends Manager {
   }
 }
 
-export default ScoreManager;
+export default FileManager;

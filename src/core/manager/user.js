@@ -15,16 +15,10 @@ class UserManager extends Manager {
     };
   }
 
-  includeOption(associationName = 'user', withDetails = false) {
+  includeOption(associationName = 'user') {
     let options = Object.assign({
       association: associationName
     }, this.findAllDefaultOptions());
-
-    if (withDetails) {
-      options.include = [
-        this.core.getUserDetailsManager().includeOption()
-      ];
-    }
 
     return options;
   }
@@ -59,6 +53,7 @@ class UserManager extends Manager {
             association: 'roles'
           }]
         }).then((user) => {
+
           if (user) {
             return this.model.matchPasswordHashPromise(password, user.password)
               .then((match) => {
@@ -73,6 +68,7 @@ class UserManager extends Manager {
             const value = await this._parseOutputItem(user);
             return resolve(value);
           }
+
           resolve();
         })
         .catch(reject);
@@ -105,7 +101,52 @@ class UserManager extends Manager {
             transaction: t
           });
         });
+    })
+    .catch((error) => {
+      console.log("This string is fire");
     });
+  }
+
+  createAdmin(userId) {
+    let userModel = this.core.getModel('User');
+    let roleModel = this.core.getModel('Role');
+    let userRoleModel = this.core.getModel('UserRole');
+    let savedRole;
+
+    return userModel.sequelize.transaction((t) => {
+      return roleModel.findOne({
+        transaction: t, 
+        where: {
+          name: 'admin'
+        }
+      })
+      .then((role) => {
+        if(!role) {
+          throw new Error('There is not a role "admin"');
+        }
+
+        savedRole = role;
+
+        return userModel.findById(userId,{
+          transaction: t
+        });
+      })
+      .then((user) => {
+        if(!user) {
+          throw('User not found');
+        }
+
+        return userRoleModel.create({
+          role_id: savedRole.role_id,
+          user_id: user.user_id
+        },{
+          transaction: t
+        });
+      });
+    })
+    .catch((error) => {
+      throw Manager.createSequelizeError(error);
+    })
   }
 }
 
