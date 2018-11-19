@@ -12,15 +12,15 @@ export default (server, core) => {
 
   routesCreator.registerBasics(['delete', 'getAll', 'getOneById']);
 
-  server.post('/v1/makeAdmin/:id', (req, res, next) => {
+  server.post('/v1/makeProf/:id', (req, res, next) => {
     
     const manager = core.getUserManager();
 
-    manager.createAdmin(req.params.id)
+    manager.createProf(req.params.id)
       .then(function(user) {
         return res.send(201,{
           id: user.user_id,
-          message: `Admin created: '${user.user_id}'.`
+          message: `Professor created: '${user.user_id}'.`
         });
       }).catch(function(error) {
         return next(errorHandler(error));
