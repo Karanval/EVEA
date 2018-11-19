@@ -2,9 +2,9 @@ import {
   Sequelize,
   DataTypes
 } from 'sequelize';
-import Base from '../Base';
+import Base from './Base';
 
-const allFields = ['class_id', 'name', 'class_code', 'description'];
+const allFields = ['class_id', 'name', 'class_code', 'description', 'objectives', 'professor_name'];
 
 class Class extends Base {
 
@@ -12,7 +12,8 @@ class Class extends Base {
     class_id: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
@@ -23,6 +24,14 @@ class Class extends Base {
       allowNull: true
     }, 
     description: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }, 
+    objectives: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }, 
+    professor_name: {
       type: DataTypes.STRING,
       allowNull: true
     }
@@ -36,21 +45,7 @@ class Class extends Base {
 
   static updatableFields = ['name', 'class_code', 'description'];
 
-  static associatedModels = [{
-    modelName: 'User',
-    type: 'hasMany',
-    options: {
-      as: 'users',
-      foreignKey: 'class_id'
-    }
-  },{
-    modelName: 'Assignment',
-    type: 'hasMany',
-    options: {
-      as: 'assignment',
-      foreignKey: 'class_id'
-    }
-  }];
+  static associatedModels = [];
 
   static options = {
     tableName: 'class'

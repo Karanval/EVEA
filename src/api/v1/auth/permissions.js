@@ -24,7 +24,7 @@ const permissions = [{
       "/v1/class", "/v1/assignment",
       "/v1/class/:classId/assignment"
     ],
-    "persmissions": ["post"]
+    "permissions": ["post"]
   }]
 },
 {

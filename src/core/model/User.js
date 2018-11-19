@@ -76,7 +76,6 @@ User.passwordHashPromise = function(password) {
       if (error) {
         return reject(error);
       }
-
       resolve(hash);
     });
   });

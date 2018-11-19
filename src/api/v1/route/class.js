@@ -9,13 +9,19 @@ export default (server, core) => {
   routesCreator.registerBasics([]);
 
   server.get('/classes', (req, res, next) => {
-    const options = routesCreator.extractGetAllOptions(req);
-
-    routesCreator.getAll(req, res, next, options);
+    const classManager = core.getClassManager();
+    
+    classManager.getClasses()
+    .then((classes) => {
+      res.send(201, classes);
+    })
+    .catch(function(error) {
+      return next(errorHandler(error));
+    });
   });
 
   server.post('/class', (req, res, next) => {
-    const classManager = this.core.getClassManager();
+    const classManager = core.getClassManager();
 
     let payload = utils.copyObject(req.body);
 
@@ -31,7 +37,7 @@ export default (server, core) => {
   })
 
   server.post('/signup/user/:userId/class/:classId', (req, res, next) => {
-    const classManager = this.core.getClassManager();
+    const classManager = core.getClassManager();
 
     let payload = utils.copyObject(req.body)
 

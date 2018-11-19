@@ -103,7 +103,7 @@ class UserManager extends Manager {
         });
     })
     .catch((error) => {
-      console.log("This string is fire");
+      throw Manager.createSequelizeError(error);
     });
   }
 
@@ -140,7 +140,7 @@ class UserManager extends Manager {
     let userModel = this.core.getModel('User');
     let roleModel = this.core.getModel('Role');
     let userRoleModel = this.core.getModel('UserRole');
-    let savedRole;
+    let savedRole, savedUser;
 
     return userModel.sequelize.transaction((t) => {
       return roleModel.findOne({
@@ -164,13 +164,25 @@ class UserManager extends Manager {
         if(!user) {
           throw('User not found');
         }
-
-        return userRoleModel.create({
-          role_id: savedRole.role_id,
-          user_id: user.user_id
-        },{
-          transaction: t
+        savedUser = user;
+        return userRoleModel.findOne({
+          transaction: t,
+          where: {
+            user_id: user.user_id,
+            role_id: savedRole.role_id
+          }
         });
+      })
+      .then((userRole) => {
+        if(!userRole) {
+          return userRoleModel.create({
+            role_id: savedRole.role_id,
+            user_id: savedUser.user_id
+          },{
+            transaction: t
+          });
+        }
+        return userRole
       });
     })
     .catch((error) => {

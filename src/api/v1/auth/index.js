@@ -41,6 +41,7 @@ export default (server, core) => {
   }));
 
   let memoryBackendAcl = new acl(new acl.memoryBackend());
+
   memoryBackendAcl.allow(aclPermissions)
     .then(() => {
       console.log('ACL initialized in memory backend.');

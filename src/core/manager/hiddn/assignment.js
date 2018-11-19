@@ -1,5 +1,4 @@
 import Manager from '../manager';
-import assignment from '../../../api/v1/route/assignment';
 
 class AssignmentManager extends Manager {
 

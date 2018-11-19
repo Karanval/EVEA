@@ -1,4 +1,4 @@
-import Manager from '../manager';
+import Manager from './manager';
 
 class ClassManager extends Manager {
 
@@ -12,6 +12,18 @@ class ClassManager extends Manager {
     return {
       attributes: this.model.displayFields['basic']
     };
+  }
+
+  getClasses() {
+    const classModel = this.core.getModel('Class');
+
+    return classModel.findAll() 
+    .then((classes) => {
+      return classes;
+    })
+    .catch((error) => {
+      throw Manager.createSequelizeError(error);
+    })
   }
 
   createClass(payload) {
