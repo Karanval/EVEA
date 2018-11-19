@@ -33,7 +33,7 @@ const permissions = [{
     "resources": [
       "/v1/class",
     ],
-    "permissions": ["patch"]
+    "permissions": ["patch", "get"]
   }]
 },
 {
