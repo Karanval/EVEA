@@ -50,12 +50,12 @@ class ClassManager extends Manager {
     let savedClass;
 
     return classModel.sequelize.transaction((t) => {
-      return classModel.findById(classId,{
+      return classModel.findByPk(classId,{
         transaction: t
       })
       .then((subject) => {
         savedClass = subject
-        return userModel.findById(userId, {
+        return userModel.findByPk(userId, {
           transaction: t
         });
       })

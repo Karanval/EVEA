@@ -107,7 +107,36 @@ class UserManager extends Manager {
     });
   }
 
-  createAdmin(userId) {
+  getNonProfessors() {
+    let userModel = this.core.getModel('User');
+    const Op = userModel.sequelize.Op;
+
+    return userModel.sequelize.transaction((t) => {
+      return userModel.findall({
+        transaction: t, 
+        include: [{
+          model: this.core.getModel('UserRole'),
+          include: [{
+            model: this.core.getModel('Role'),
+            where: {
+              name: {
+                [Op.notIn]: ['professor']
+              }
+            }
+          }],
+          required: false
+        }]
+      })
+      .then((users) => {
+        return users;
+      });
+    })
+    .catch((error) => {
+      throw Manager.createSequelizeError(error);
+    });
+  }
+
+  createProfessor(userId) {
     let userModel = this.core.getModel('User');
     let roleModel = this.core.getModel('Role');
     let userRoleModel = this.core.getModel('UserRole');
@@ -117,17 +146,17 @@ class UserManager extends Manager {
       return roleModel.findOne({
         transaction: t, 
         where: {
-          name: 'admin'
+          name: 'professor'
         }
       })
       .then((role) => {
         if(!role) {
-          throw new Error('There is not a role "admin"');
+          throw new Error('There is not a role "professor"');
         }
 
         savedRole = role;
 
-        return userModel.findById(userId,{
+        return userModel.findByPk(userId,{
           transaction: t
         });
       })
@@ -146,7 +175,7 @@ class UserManager extends Manager {
     })
     .catch((error) => {
       throw Manager.createSequelizeError(error);
-    })
+    });
   }
 }
 

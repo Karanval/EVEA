@@ -39,7 +39,7 @@ const permissions = [{
 {
   "roles": ["admin"],
   "allows": [{
-    "resources": ["/v1/user", "/v1/user/:id"],
+    "resources": ["/v1/user", "/v1/user/:id", "/v1/makeProf/:id", "/v1/nonProfessors"],
     "permissions": ["get", "post"]
   }]
 },

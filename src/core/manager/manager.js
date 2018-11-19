@@ -145,7 +145,7 @@ class Manager {
     childModelName = childModelName || this.missingAttributeError('childModelName');
 
     return new Promise((resolve, reject) => {
-      this.model.findById(parentId, {
+      this.model.findByPk(parentId, {
           attributes: [this.model.primaryKeyAttributes[0]]
         })
         .then((parent) => {
@@ -169,7 +169,7 @@ class Manager {
           where: id
         });
       } else {
-        promise = this.model.findById(id);
+        promise = this.model.findByPk(id);
       }
 
       promise
@@ -267,7 +267,7 @@ class Manager {
           where: id
         });
       } else {
-        promise = this.model.findById(id);
+        promise = this.model.findByPk(id);
       }
 
       promise
@@ -291,7 +291,7 @@ class Manager {
     });
   }
 
-  findById(id, options = {}) {
+  findByPk(id, options = {}) {
     return new Promise((resolve, reject) => {
 
       let findOptions = Object.assign({}, options);
@@ -307,9 +307,9 @@ class Manager {
           .scope('detail', {
             method: ['associated', this.model, 'basic']
           })
-          .findById(id, findOptions);
+          .findByPk(id, findOptions);
       } else {
-        promise = this.model.findById(id, findOptions);
+        promise = this.model.findByPk(id, findOptions);
       }
 
       return promise

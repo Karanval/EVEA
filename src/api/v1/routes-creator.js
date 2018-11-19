@@ -206,7 +206,7 @@ class RoutesCreator {
 
     this._retrieveGlobalOptions(req, options)
       .then((findOptions) => {
-        return manager.findById(modelId, findOptions)
+        return manager.findByPk(modelId, findOptions)
       })
       .then((item) => {
 

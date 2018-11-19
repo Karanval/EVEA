@@ -12,11 +12,10 @@ export default (server, core) => {
 
   routesCreator.registerBasics(['delete', 'getAll', 'getOneById']);
 
-  server.post('/v1/makeProf/:id', (req, res, next) => {
-    
+  server.post('/makeProf/:id', (req, res, next) => {
     const manager = core.getUserManager();
 
-    manager.createProf(req.params.id)
+    manager.createProfessor(req.params.id)
       .then(function(user) {
         return res.send(201,{
           id: user.user_id,
@@ -42,6 +41,19 @@ export default (server, core) => {
         return next(errorHandler(error));
       });
   });
+
+  server.get('/nonProfessors', (req,res,next) => {
+    const userManager = core.getUserManager;
+
+    userManager.getNonProfessors()
+    .then(function(users) {
+      return res.send(201, users);
+    })
+    .catch(function(error) {
+      return next(errorHandler(error));
+    });
+
+  })
 
   server.get('/user/:id/session', (req, res, next) => {
     const model = core.getModel('User');
