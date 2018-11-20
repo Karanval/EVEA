@@ -20,6 +20,18 @@ export default (server, core) => {
     });
   });
 
+  server.get('/classes/:userId', (req, res, next) => {
+    const classManager = core.getClassManager();
+    
+    classManager.getMyClasses(req.params.userId)
+    .then((classes) => {
+      res.send(201, classes);
+    })
+    .catch(function(error) {
+      return next(errorHandler(error));
+    });
+  });
+
   server.post('/class', (req, res, next) => {
     const classManager = core.getClassManager();
 
@@ -45,7 +57,7 @@ export default (server, core) => {
     .then(function(signUp) {
       return res.send(201, {
         id: signUp.user_id,
-        message: `User ${signup.user_id} signed up in class ${signup.class_id}.`
+        message: `User ${signUp.user_id} signed up in class ${signUp.class_id}.`
       });
     }).catch(function(error) {
       return next(errorHandler(error));

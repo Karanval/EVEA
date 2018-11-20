@@ -11,10 +11,18 @@ const permissions = [{
   "allows": [{
     "resources": [
       "/v1/user/:id/session", "/v1/auth/login", "/v1/user", "/v1/classes",
-      "/v1/signup/user/:userId/class/:classId", 
-      "/v1/class/:classId/assignments"
+      "/v1/class/:classId/assignments", "/v1/classes/:userId"
     ],
     "permissions": ["get"]
+  }]
+},
+{
+  "roles": ["user", "admin", "professor"],
+  "allows": [{
+    "resources": [
+      "/v1/signup/user/:userId/class/:classId", 
+    ],
+    "permissions": ["post"]
   }]
 },
 {

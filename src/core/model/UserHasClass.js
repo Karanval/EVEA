@@ -2,7 +2,7 @@ import {
   Sequelize,
   DataTypes
 } from 'sequelize';
-import Base from '../Base';
+import Base from './Base';
 
 const allFields = ['user_id', 'class_id'];
 
@@ -36,7 +36,21 @@ class UserHasClass extends Base {
 
   static updatableFields = [];
 
-  static associatedModels = [];
+  static associatedModels = [{
+    modelName: 'User',
+    type: 'belongsTo',
+    options: {
+      as: 'user',
+      foreignKey: 'user_id'
+    }
+  }, {
+    modelName: 'Class',
+    type: 'belongsTo',
+    options: {
+      as: 'class',
+      foreignKey: 'class_id'
+    }
+  }];
 
   static options = {
     tableName: 'user_has_class'

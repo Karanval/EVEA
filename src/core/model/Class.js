@@ -45,7 +45,14 @@ class Class extends Base {
 
   static updatableFields = ['name', 'class_code', 'description'];
 
-  static associatedModels = [];
+  static associatedModels = [{
+    modelName: 'UserHasClass',
+    type: 'hasMany',
+    options: {
+      as: 'class_has_users',
+      foreignKey: 'class_id'
+    }
+  }];
 
   static options = {
     tableName: 'class'

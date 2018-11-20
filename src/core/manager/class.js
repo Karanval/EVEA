@@ -14,6 +14,26 @@ class ClassManager extends Manager {
     };
   }
 
+  getMyClasses(userId) {
+    const classModel = this.core.getModel('Class');
+
+    return classModel.findAll({
+      include: [{
+        model: this.core.getModel('UserHasClass'),
+        as: 'class_has_users',
+        where: {
+          user_id: userId
+        }
+      }]
+    }) 
+    .then((classes) => {
+      return classes;
+    })
+    .catch((error) => {
+      throw Manager.createSequelizeError(error);
+    })
+  }
+
   getClasses() {
     const classModel = this.core.getModel('Class');
 
@@ -57,7 +77,7 @@ class ClassManager extends Manager {
   signup(userId, classId, payload) {
     const classModel = this.core.getModel('Class');
     const userModel = this.core.getModel('User');
-    const classHasUserModel = this.core.getModel('ClassHasUser');
+    const classHasUserModel = this.core.getModel('UserHasClass');
 
     let savedClass;
 
