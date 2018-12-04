@@ -5,12 +5,17 @@ const allConfigs = {
     },
     database: {
       socketPath: '',
-      host: 'localhost',
+      // host: 'localhost',
+      // port: 3306,
+      host: 'sql10.freemysqlhosting.net',
       port: 3306,
       dialect: 'mysql',
-      database: 'eva',
-      username: 'root',
-      password: 'root',
+      // database: 'eva',
+      // username: 'root',
+      // password: 'root',
+      database: 'sql10268291',
+      username: 'sql10268291',
+      password: 'JJLJIBWBAg',
       charset: 'utf8'
     },
     security: {

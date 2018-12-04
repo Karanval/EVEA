@@ -28,7 +28,6 @@
     "jsonwebtoken": "^8.3.0",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
-    "nodemon": "^1.18.5",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "require-all": "^3.0.0",
