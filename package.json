@@ -4,7 +4,7 @@
   "description": "Virtual environment for teaching and learning",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "nodemon --inspect src/app.js --exec babel-node",
     "build": "babel src -d dist",
     "debug": "nodemon --inspect src/app.js --exec babel-node"
   },
