@@ -9,7 +9,7 @@ export default function(serverConfig = {}) {
   server.use(restify.plugins.bodyParser());
 
   let corsOrigins = [
-      'http://localhost:4200'
+      'http://localhost:4201'
     ],
     corsAllowHeaders = ['*', 'Authorization'],
     corsExposeHeaders = ['*'];

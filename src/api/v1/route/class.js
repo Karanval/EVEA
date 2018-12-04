@@ -64,4 +64,15 @@ export default (server, core) => {
     });
   })
 
+  // server.get('/Class/:classId', (req, res, next) => {
+  //   const classManager = core.getClassManager();
+    
+  //   classManager.getClass(req.params.classId)
+  //   .then((classes) => {
+  //     res.send(201, classes);
+  //   })
+  //   .catch(function(error) {
+  //     return next(errorHandler(error));
+  //   });
+  // });
 };

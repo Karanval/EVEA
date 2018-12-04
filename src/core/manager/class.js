@@ -14,6 +14,18 @@ class ClassManager extends Manager {
     };
   }
 
+  getClass(classId) {
+    const classModel = this.core.getModel('Class');
+
+    return classModel.findByPk(classId)
+    .then((subject) => {
+      return subject;
+    })
+    .catch((error) => {
+      throw Manager.createSequelizeError(error);
+    })
+  }
+
   getMyClasses(userId) {
     const classModel = this.core.getModel('Class');
 

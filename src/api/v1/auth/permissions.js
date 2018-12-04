@@ -11,7 +11,7 @@ const permissions = [{
   "allows": [{
     "resources": [
       "/v1/user/:id/session", "/v1/auth/login", "/v1/user", "/v1/classes",
-      "/v1/class/:classId/assignments", "/v1/classes/:userId"
+      "/v1/class/:classId/assignments", "/v1/classes/:userId", "/v1/class/:id"
     ],
     "permissions": ["get"]
   }]
@@ -20,7 +20,7 @@ const permissions = [{
   "roles": ["user", "admin", "professor"],
   "allows": [{
     "resources": [
-      "/v1/signup/user/:userId/class/:classId", 
+      "/v1/signup/user/:userId/class/:classId", "/v1/assignment"
     ],
     "permissions": ["post"]
   }]
