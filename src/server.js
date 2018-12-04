@@ -9,7 +9,7 @@ export default function(serverConfig = {}) {
   server.use(restify.plugins.bodyParser());
 
   let corsOrigins = [
-      'http://localhost:4201'
+      'http://localhost:4201', 'https://evea-client.herokuapp.com'
     ],
     corsAllowHeaders = ['*', 'Authorization'],
     corsExposeHeaders = ['*'];
